@@ -6,9 +6,14 @@ use App\Filament\Resources\PatientResource\Pages;
 use App\Filament\Resources\PatientResource\RelationManagers;
 use App\Models\Patient;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -23,7 +28,39 @@ class PatientResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Select::make('type')
+                    ->options([
+                        'cat' => 'Cat',
+                        'dog' => 'Dog',
+                        'rabbit' => 'Rabbit'
+                    ])
+                    ->required(),
+                DatePicker::make('birthday')
+                    ->required()
+                    ->maxDate(now()),
+                Select::make('owner_id')
+                    ->relationship('owner', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('email')
+                            ->label('Email address')
+                            ->email()
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('phone')
+                            ->label('Phone number')
+                            ->tel()
+                            ->required()
+                            ->maxLength(255)
+                    ])
+                    ->required()
             ]);
     }
 
@@ -31,10 +68,21 @@ class PatientResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('type'),
+                TextColumn::make('birthday'),
+                TextColumn::make('owner.name')
+                    ->searchable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('type')
+                    ->options([
+                        'cat' => 'Cat',
+                        'dog' => 'Dog',
+                        'rabbit' => 'Rabbit'
+                    ])
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
