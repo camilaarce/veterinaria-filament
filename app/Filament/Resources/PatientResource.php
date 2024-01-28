@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PatientResource\Pages;
 use App\Filament\Resources\PatientResource\RelationManagers;
+use App\Filament\Resources\PatientResource\RelationManagers\TreatmentsRelationManager;
 use App\Models\Patient;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -97,7 +98,7 @@ class PatientResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TreatmentsRelationManager::class,
         ];
     }
 
