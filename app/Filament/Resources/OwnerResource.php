@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\OwnerResource\Pages;
 use App\Filament\Resources\OwnerResource\RelationManagers;
+use App\Filament\Resources\OwnerResource\RelationManagers\PatientsRelationManager;
 use App\Models\Owner;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
@@ -67,7 +68,7 @@ class OwnerResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PatientsRelationManager::class,
         ];
     }
 
