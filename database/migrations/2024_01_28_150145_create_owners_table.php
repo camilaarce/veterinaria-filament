@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('owners', function (Blueprint $table) {
             $table->id();
-            $tabl->string('email');
-            $tabl->string('name');
-            $tabl->string('phone');
+            $table->string('email');
+            $table->string('name');
+            $table->string('phone');
             $table->timestamps();
         });
     }

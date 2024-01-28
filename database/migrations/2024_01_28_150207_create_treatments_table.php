@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('treatments', function (Blueprint $table) {
             $table->id();
-            $tabl->string('description');
-            $tabl->text('notes')->nullable();
+            $table->string('description');
+            $table->text('notes')->nullable();
             $table->foreignId('patient_id')->constrained('patients')->cascadeOnDelete();
             $table->UnsignedInteger('price')->nullable();
             $table->timestamps();

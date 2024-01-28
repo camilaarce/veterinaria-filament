@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->date('birthday');
-            $tabl->string('name');
+            $table->string('name');
             $table->foreignId('owner_id')->constrained('owners')->cascadeOnDelete();
-            $tabl->string('type');
+            $table->string('type');
             $table->timestamps();
         });
     }
